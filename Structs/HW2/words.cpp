@@ -3,11 +3,17 @@
 
 using namespace std;
 
+// Uses an array of structs to parse a book, count and sort words, ignoring unique words,
+// and displays probablilty of occurence of the N - N+10 most common words, not counting ignore words
+// Struct array is dynamically allocated by hand using array doubling
+
+
 struct wordItem{
-    string word;
-    int count;
+    string word; // word
+    int count;   // times ocurred in book
 };
 
+// Read a command line specified txt file of words to ignore
 void getStopWords (const char *wordsFile, string wordsArr[]){
     ifstream words (wordsFile);
     string line;
@@ -23,6 +29,7 @@ void getStopWords (const char *wordsFile, string wordsArr[]){
     }
 }
 
+// checks if word from book is a word to ignore
 bool isStopWord (string word, string ignoreArr[]){
     for (int i = 0; i < 50; i++){
         if (word == ignoreArr[i]){
@@ -32,6 +39,7 @@ bool isStopWord (string word, string ignoreArr[]){
     return false;
 }
 
+// counts total number of non-ignored words
 int getTotalNumberNonStopWords (wordItem uniqueWords[], int length){
     int tot = 0;
     for (int i = 0; i < length; i++){
@@ -40,6 +48,7 @@ int getTotalNumberNonStopWords (wordItem uniqueWords[], int length){
     return tot;
 }
 
+// Sorts words from most common to least common
 void arraySort(wordItem uniqueWords[], int length){
     for (int i = 0; i < length-1; i++){
         for (int j = 0; j < length - i - 1; j++){
@@ -66,6 +75,7 @@ void printNext10(wordItem uniqueWords[], int N, int totalNumWords){
     }
 }
 
+// Dynamic array allocation
 void dub(wordItem *& arr, int size) {
 
     wordItem *dbld = new wordItem[size*2];
@@ -77,7 +87,7 @@ void dub(wordItem *& arr, int size) {
 }
 
 int main (int argc, char *argv[]){
-    if (argc != 4){
+    if (argc != 4){ // wrong number of arguments
         cout << "Usage: Assignment2Solution <number of words> <inputfilename.txt> <ignoreWordsfilename.txt>" << endl;
         return 0;
     }
@@ -96,11 +106,11 @@ int main (int argc, char *argv[]){
 
     while (in >> word){
         skip = false;
-        if (isStopWord(word, ignoreWords)){
+        if (isStopWord(word, ignoreWords)){ // check if word is to be skipped
                 skip = true;
         }
         if (!skip){
-            if (current == max){
+            if (current == max){ // if array is at capacity, double it
                 dub(book, max);
                 max += max;
                 timesDubbed++;
@@ -113,7 +123,7 @@ int main (int argc, char *argv[]){
                         break;
                     }
                 }
-                if(i==current)
+                if(i==current) // word not yet in array
                 {
                         book[current].word = word;
                         book[current].count = 1;
