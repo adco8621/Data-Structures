@@ -2,6 +2,8 @@
 #include <iostream>
 #include <fstream>
 
+// This file is to test a bubble sort-esque method of inserting a number into a sorted array from a file
+
 int main(int argc, char const* argv[]){
     int array[100] = {};
     int line, num1;
