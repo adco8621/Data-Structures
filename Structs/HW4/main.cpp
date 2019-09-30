@@ -1,13 +1,12 @@
 /****************************************************************/
 /*                   Assignment 4 Driver File                   */
 /****************************************************************/
-/* TODO: Implement menu options as described in the writeup     */
+/*                                                              */
 /****************************************************************/
 
 #include "CountryNetwork.hpp"
 #include <cctype>
 #include <string>
-// you may include more libraries as needed
 
 using namespace std;
 
@@ -31,18 +30,18 @@ int main(int argc, char* argv[])
 
         switch (menuChoice)
         {
-        case 1:
+        case 1: // load default LL
             CountryNet.loadDefaultSetup();
             CountryNet.printPath();
 
             break;
         
-        case 2: 
+        case 2: // print LL
             CountryNet.printPath();
             
             break;
 
-        case 3:
+        case 3: // Add a new country
             cout << "Enter a new country name:" << endl;
             getline(cin,addCountry,'\n');
             cout << "Enter the previous country name (or First):" << endl;
@@ -70,7 +69,7 @@ int main(int argc, char* argv[])
             
             break;
 
-        case 4:
+        case 4: // delete country
             cout << "Enter a country name: " << endl;
             getline(cin,delCountry,'\n');
             CountryNet.deleteCountry(delCountry);
@@ -78,13 +77,13 @@ int main(int argc, char* argv[])
 
             break;
 
-            case 5:
+            case 5: // reverse LL
                 CountryNet.reverseEntireNetwork();
                 CountryNet.printPath();
 
                 break;
 
-            case 6:
+            case 6: // rotate LL
                 cout << "Enter the count of values to be rotated: " <<  endl;
                 getline(cin, rotateStr, '\n');
                 rotate = stoi(rotateStr);
@@ -93,7 +92,7 @@ int main(int argc, char* argv[])
 
                 break;
 
-            case 7:
+            case 7: // delete entire LL
                 cout << "Network before deletion" << endl;
                 CountryNet.printPath();
                 CountryNet.deleteEntireNetwork();
@@ -102,7 +101,7 @@ int main(int argc, char* argv[])
 
                 break;
 
-            case 8:
+            case 8: // delete entire LL and quit
                 cout << "Quitting... cleaning up path: " << endl;
                 CountryNet.printPath();
                 CountryNet.deleteEntireNetwork();

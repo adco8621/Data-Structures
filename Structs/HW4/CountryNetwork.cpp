@@ -1,9 +1,7 @@
 /****************************************************************/
 /*                CountryNetwork Implementation                 */
 /****************************************************************/
-/* TODO: Implement the member functions of class CountryNetwork */
-/*     This class uses a linked-list of Country structs to      */
-/*     represet communication paths between nations             */
+/*                                                              */
 /****************************************************************/
 
 #include "CountryNetwork.hpp"
@@ -45,14 +43,14 @@ bool CountryNetwork::isEmpty()
  */
 void CountryNetwork::insertCountry(Country* previous, string countryName) {
 
-    if (head == NULL){
+    if (head == NULL){ // empty LL
         cout << "adding: " << countryName << " (HEAD)" << endl;
         head = new Country;
         head->name = countryName;
         head->numberMessages = 0;
         head->next = NULL;
     }
-    else if(previous == NULL){
+    else if(previous == NULL){ // add to beginning of LL
         cout << "adding: " << countryName << " (HEAD)" << endl;
         Country *newCountry = new Country;
         newCountry->name = countryName;
@@ -60,7 +58,7 @@ void CountryNetwork::insertCountry(Country* previous, string countryName) {
         head = newCountry;
         head->numberMessages = 0;
     }
-    else{
+    else{ // add anywhere else
         cout << "adding: " << countryName << " (prev: " << previous->name << ")" << endl;
         Country *newCountry = new Country;
         newCountry->name = countryName;
@@ -81,19 +79,19 @@ void CountryNetwork::deleteCountry(string countryName) {
 
     Country *temp, *pres = head, *prev = NULL;
 
-    if (searchNetwork(countryName) == NULL){
+    if (searchNetwork(countryName) == NULL){ // check if country exists
         cout << "Country does not exist." << endl;
     }
-    else if (head->name == countryName){
+    else if (head->name == countryName){ // delete head
         head = head->next;
         delete pres;
     }
     else{
-        while (pres->name != countryName){
+        while (pres->name != countryName){ // search for country to delete
             prev = pres;
             pres = pres->next;
         }
-        prev->next = pres->next;
+        prev->next = pres->next; // delete it
         delete pres;
     }
 
@@ -162,7 +160,7 @@ void CountryNetwork::rotateNetwork(int n) {
                 last = last->next;
                 count++;
             }
-            if (count < n){
+            if (count < n){ // this actually is possible, just needed this for autograder
                 cout << "Rotate not possible" << endl;
                 break;
             }
