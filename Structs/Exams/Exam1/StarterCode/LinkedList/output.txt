@@ -1,0 +1,8 @@
+13 -> 33 -> 53 -> 73 -> 10
+Testing getMiddle function: Testcase Pass 53 53
+Adding 15 nodes to List
+30 -> 199 -> 396 -> 591 -> 784 -> 975 -> 1164 -> 1351 -> 1536 -> 1719 -> 1900 -> 2079 -> 2256 -> 2431 -> 2604 -> 2775
+Testing getMiddle function: Testcase Pass 1536 1536
+10
+Testing getMiddle function: Testcase Pass 10 10
+Testing getMiddle function: Pass

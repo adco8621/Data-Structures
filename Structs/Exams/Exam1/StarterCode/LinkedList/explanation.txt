@@ -1,0 +1,5 @@
+I couldnt get the conditions in the if in the while loop to work as while loop conditions.
+I think this may be since I did not say "new" but I am unsure. It works in its current state,
+however.
+
+I added a testcase for an empty LL and for a LL of size 1.

@@ -1,5 +1,5 @@
-#ifndef STACKLL_HPP
-#define STACKLL_HPP
+#ifndef STRINGMATCH
+#define STRINGMATCH
 
 class StackLL
 {
@@ -10,8 +10,7 @@ class StackLL
         Node *next;
     };
 
-    // pocharer to item to be popped next
-    Node* stackHead;
+    Node * stackHead;
 
   public:
     StackLL();

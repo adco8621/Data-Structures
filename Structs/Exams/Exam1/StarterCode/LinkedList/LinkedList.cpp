@@ -1,6 +1,31 @@
 #include "LinkedList.hpp"
 
 using namespace std;
+/*
+ * Purpose: To find the middle element of the linked list
+ * @param Use head to traverse the Linked List
+ * @return Middle Node
+ */
+Node* LinkedList::getMiddle()
+{
+  Node *fast = head, *slow = head;
+  if (head != NULL){
+    int i = 1;
+    while (1){
+      if(fast == NULL || fast->next == NULL){
+        break;
+      }
+      else{
+        fast = fast->next->next;
+        slow = slow->next;
+      }
+    }
+    return slow;
+  }
+  else{
+    return NULL;
+  }
+}
 
 // Add a new node to the list
 void LinkedList::insert(Node* prev, int newKey){
@@ -31,30 +56,6 @@ void LinkedList::insert(Node* prev, int newKey){
     }
   }
 
-//Delete node
-void LinkedList::deleteNode(int val) {
-    
-    Node *delval = searchList(val);
-    if (delval == NULL)
-    {
-        cout << "Value does not exist." << endl;
-    }
-    else if (delval == head)
-    {
-        head = head->next;
-        delete delval;
-    }
-    else
-    {
-        Node *tmp = head;
-        while (tmp->next != delval)
-        {
-            tmp = tmp->next;
-        }
-        tmp->next = tmp->next->next;
-        delete delval;
-    }
-}
 
 // Print the keys in your list
 void LinkedList::printList(){

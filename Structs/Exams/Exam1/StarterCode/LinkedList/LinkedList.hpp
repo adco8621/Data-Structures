@@ -16,6 +16,6 @@ class LinkedList
     }
     void insert(Node *prev, int newKey);
     Node* searchList(int key);
-    void deleteNode(int val);
+    Node*  getMiddle();
     void printList();
 };

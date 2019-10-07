@@ -1,0 +1,7 @@
+Testcase 1 Pass
+Testcase 2 Pass
+empty stack. can not pop
+empty stack. can not pop
+Testcase 3 Pass
+Testcase 4 Pass
+Testcase 5 Pass
