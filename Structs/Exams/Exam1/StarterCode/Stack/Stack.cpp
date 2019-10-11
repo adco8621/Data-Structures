@@ -50,7 +50,7 @@ char StackLL::peek()
         return stackHead->key;
     else{
         cout<<"empty stack. can not peek"<<endl;
-        return -1;
+        return NULL;
     }
   //return 0;
 }
