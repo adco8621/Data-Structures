@@ -3,12 +3,17 @@
 
 using namespace std;
 
+TreeNode* deleteNode(TreeNode *, TreeNode *);
+void printHelper(TreeNode *);
+void deconHelper(TreeNode *);
+
+
 MovieTree::MovieTree(){
     root = NULL;
 }
 
 MovieTree::~MovieTree(){
-
+    deconHelper(root);
 }
 
 void MovieTree::printMovieInventory(){
@@ -17,6 +22,7 @@ void MovieTree::printMovieInventory(){
     }
     printHelper(root);
 }
+
 
 void MovieTree::addMovie(int ranking, string title, int year, float rating){
     LLMovieNode *nn = new LLMovieNode(ranking, title, year, rating);
@@ -97,7 +103,7 @@ void MovieTree::deleteMovie(string title){
             delete node->head;
             node->head = temp;
             if (!node->head){
-                deleteNode(node);
+                root = deleteNode(node, root);
             }
         }
         else{
@@ -123,7 +129,18 @@ void MovieTree::deleteMovie(string title){
 }
 
 void deconHelper(TreeNode *node){
-
+    if (!node) {
+        return;
+    }
+    deconHelper(node->leftChild);
+    deconHelper(node->rightChild);
+    while (node->head){
+        LLMovieNode *temp = node->head;
+        delete node->head;
+        node->head = temp->next;
+        delete temp;
+    }
+    delete node;
 }
 
 void printHelper(TreeNode *node){
@@ -141,39 +158,65 @@ void printHelper(TreeNode *node){
     printHelper(node->rightChild);
 }
 
-void deleteNode(TreeNode *node){
-    if(node->leftChild == NULL && node->rightChild == NULL)
+TreeNode* deleteNode(TreeNode *node, TreeNode *currNode){
+
+  if(currNode == NULL)
+  {
+    return NULL;
+  }
+  else if(node->titleChar < currNode->titleChar)
+  {
+    currNode->leftChild = deleteNode(node, currNode->leftChild);
+  }
+  else if(node->titleChar > currNode->titleChar)
+  {
+    currNode->rightChild = deleteNode(node, currNode->rightChild);
+  }
+  // We found the node with the value
+  else
+  {
+    //TODO Case : No child
+    if(currNode->leftChild == NULL && currNode->rightChild == NULL)
     {
-        delete node;
-        return;
+        delete currNode;
+        return NULL;
     }
-    else if(node->leftChild == NULL)
+    //TODO Case : Only right child
+    else if(currNode->leftChild == NULL)
     {
-        TreeNode *temp = node;
-        delete node;
-        node = temp->rightChild;
+        TreeNode *temp = currNode;
+        delete currNode;
+        currNode = temp->rightChild;
+        return currNode;
+
     }
-    else if(node->rightChild == NULL)
+    //TODO Case : Only left child
+    else if(currNode->rightChild == NULL)
     {
-        TreeNode *temp = node;
-        delete node;
-        node = temp->leftChild;
+        TreeNode *temp = currNode;
+        delete currNode;
+        currNode = temp->leftChild;
+        return currNode;
     }
+    //TODO Case: Both left and right child
     else
     {
-      TreeNode *temp = node, *crawl = node->rightChild, *temp2;
+      TreeNode *temp = currNode, *crawl = currNode->rightChild, *temp2 = crawl;
       while(crawl->leftChild != NULL){
           if (crawl->leftChild->leftChild = NULL){
               temp2 = crawl->leftChild;
           }
-          crawl = node->leftChild;
+          crawl = crawl->leftChild;
           temp2->leftChild = NULL;
       }
-      delete node;
-      node = crawl;
+      delete currNode;
+      currNode = crawl;
       crawl->rightChild = temp->rightChild;
       crawl->leftChild = temp->leftChild;
-      return;
+      return currNode;
       
     }
+
+  }
+return currNode;
 }
