@@ -5,7 +5,7 @@ struct LLNode{
     LLNode *next;
 };
 
-strcut BSTNode{
+struct BSTNode{
     int data;
     BSTNode *left;
     BSTNode *right;
@@ -21,6 +21,20 @@ private:
     int hash(int);
 
     vector<LLNode> table;
+    float load;
+    int tableSize;
+}
+
+class HashLBST{
+public:
+    int lookup(int);
+    int insert(int);
+    int remove(int);
+    int getLoad();
+private:
+    int hash(int);
+
+    vector<BSTNode> table;
     float load;
     int tableSize;
 }
