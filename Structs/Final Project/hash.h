@@ -36,6 +36,7 @@ private:
 
     vector<BSTNode> table;
     float load;
+    int occupied = 0;
     int tableSize = 1019;
 }
 

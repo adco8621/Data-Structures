@@ -20,6 +20,7 @@ void HashBST::insert(int data){
     // check if element empty and insert
     if (table[key].data == -1){
         table[key].data = data;
+        occupied++;
         return;
     }
     // inserting along BST
@@ -67,5 +68,13 @@ bool HashBST::lookup(int data){
     }
 }
 
-// TODO: add load stuff to insert
-//       create remove func and do load stuff for it
+float HashBST::getLoad(){
+    // annoying to round load to one decimal
+    load = (occupied/tableSize)*10;
+    int temp = (int)load;
+    load = (float)temp/10;
+    return load;
+}
+
+// TODO: create remove func and do load stuff for it
+//       make sure making new node when inserting
