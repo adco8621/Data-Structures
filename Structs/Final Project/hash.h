@@ -10,8 +10,8 @@ struct LLNode{
 
 struct BSTNode{
     int data;
-    BSTNode *left;
-    BSTNode *right;
+    BSTNode *left = nullptr;
+    BSTNode *right = nullptr;
 };
 
 class HashLL{
@@ -32,13 +32,13 @@ class HashBST{
 public:
     bool lookup(int);
     void insert(int);
-    bool remove(int);
+    void remove(int);
     float getLoad();
 //private:
     int hash(int);
 
-    BSTNode *table[1019];
-    float load;
+    BSTNode *table[1019] = {};
+    float load = 0;
     int occupied = 0;
     int tableSize = 1019;
 };

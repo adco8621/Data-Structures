@@ -9,6 +9,7 @@ struct Node{
     Node* right;
 };
 
+
 class BST{
     private:
         Node* root;
