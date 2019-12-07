@@ -10,8 +10,8 @@ struct LLNode{
 
 struct BSTNode{
     int data;
-    BSTNode *left = nullptr;
-    BSTNode *right = nullptr;
+    BSTNode *left = {};
+    BSTNode *right = {};
 };
 
 class HashLL{
@@ -59,13 +59,14 @@ private:
 
 class HashCuckoo{
 public:
-    int lookup(int);
-    int insert(int);
-    int remove(int);
-    int getLoad();
-private:
+    bool lookup(int);
+    void insert(int);
+    void remove(int);
+    float getLoad();
+//private:
     int hash1(int);
     int hash2(int);
+    void rehash();
 
     vector<int> table1;
     vector<int> table2;

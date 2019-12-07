@@ -31,18 +31,18 @@ int main(){
 ////    remove test    /////////////////////////////////
 
 
-    test.insert(10);
-    test.insert(1029);
+    // test.insert(10);
+    // test.insert(1029);
 
-    test.remove(10);
+    // test.remove(10);
 
-    cout << test.lookup(10) << endl << test.lookup(1029) << endl;
+    // cout << test.lookup(10) << endl << test.lookup(1029) << endl;
 
-    test.insert(10);
+    // test.insert(10);
 
-    test.remove(10);
+    // test.remove(10);
 
-    cout << test.lookup(10) << endl << test.lookup(1029) << endl;
+    // cout << test.lookup(10) << endl << test.lookup(1029) << endl;
 
     return 1;
 
