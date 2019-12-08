@@ -11,15 +11,15 @@ int main(){
 
 ////    insert and load test    //////////////////////
 
-    // ifstream infile ("nums.txt");
-    // string line;
+    ifstream infile ("nums.txt");
+    string line;
 
-    // for (int i = 0; i < 110; i++){
-    //     getline(infile, line);
-    //     test.insert(stoi(line));
-    // }
+    for (int i = 0; i < 110; i++){
+        getline(infile, line);
+        test.insert(stoi(line));
+    }
 
-    // cout << test.getLoad() << endl;
+    cout << test.getLoad() << endl;
 
 ////    lookup test    ////////////////////////////////
 

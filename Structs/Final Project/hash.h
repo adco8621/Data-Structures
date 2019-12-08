@@ -59,6 +59,7 @@ private:
 
 class HashCuckoo{
 public:
+    HashCuckoo();
     bool lookup(int);
     void insert(int);
     void remove(int);
@@ -66,10 +67,13 @@ public:
 //private:
     int hash1(int);
     int hash2(int);
-    void rehash();
+    void rehash(int);
 
     vector<int> table1;
     vector<int> table2;
+    int occupied;
     float load;
     int tableSize;
+    int rehashed;
+    bool rehashingFlag = false, rehashCycleFlag = false;
 };
