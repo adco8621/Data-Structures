@@ -23,21 +23,29 @@ void HashCuckoo::insert(int data){
 
     // make sure data is not in either table during call to rehash
 
+    cout << "inserting"
+
     if (table1[hash1(data)] == -1){
         table1[hash1(data)] = data;
+        if (!rehashingFlag)
+            occupied++;
+        return;
     }
     else if (table2[hash2(data)] == -1){
         table2[hash2(data)] = data;
+        if (!rehashingFlag)
+            occupied++;
+        return;
     }
     else{
-        int currMov = data, key1, key2, flag = 0;
+        int currMov = data, key1, key2, flag = 0, nextMov, prevTable = 2;
         while (true){
             if (currMov == data){
                 flag ++;
             }
             if (flag == 2 && !rehashingFlag){
                 rehash(data);
-                rehashed++;
+                occupied++;
                 return;
             }
             else if (flag == 2 && rehashingFlag){
@@ -47,10 +55,29 @@ void HashCuckoo::insert(int data){
             key1 = hash1(currMov);
             key2 = hash2(currMov);
 
-            if (table1[key1] == currMov){
-                if (table2[key2] == -1){
-                    
-                }
+            if (table1[key1] != -1 && prevTable == 2){
+                nextMov = table1[key1];
+                table1[key1] = currMov;
+                currMov = nextMov;
+                prevTable = 1;
+            }
+            else if (table2[key2] !=-1 && prevTable == 1){
+                nextMov = table2[key2];
+                table2[key2] = currMov;
+                currMov = nextMov;
+                prevTable = 2;
+            }
+            else if (table1[key1] == -1 && prevTable == 2){
+                table1[key1] = currMov;
+                if (!rehashingFlag)
+                    occupied++;
+                return;
+            }
+            else if (table2[key2] == -1 && prevTable == 1){
+                table2[key2] = currMov;
+                if (!rehashingFlag)
+                    occupied++;
+                return;
             }
         }
     }
@@ -58,10 +85,10 @@ void HashCuckoo::insert(int data){
 
 void HashCuckoo::remove(int data){
     if (table1[hash1(data)] == data){
-        table1[hash1(data)] == -1;
+        table1[hash1(data)] = -1;
     }
     else if (table2[hash2(data)] == data){
-        table2[hash2(data)] == -1;
+        table2[hash2(data)] = -1;
     }
     return;
 }
@@ -78,7 +105,7 @@ int HashCuckoo::hash1(int data){
 }
 
 int HashCuckoo::hash2(int data){
-    return floor(data/tableSize);
+    return ((int)floor(data/tableSize)) % tableSize;
 }
 
 bool isPrime(int num){
@@ -91,8 +118,8 @@ bool isPrime(int num){
     
     if (num%2 == 0 || num%3 == 0) return false;  
     
-    for (int i=5; i*i<=n; i=i+6)  
-        if (n%i == 0 || n%(i+2) == 0)  
+    for (int i=5; i*i<=num; i=i+6)  
+        if (num%i == 0 || num%(i+2) == 0)  
            return false;  
     
     return true;
@@ -133,6 +160,7 @@ void HashCuckoo::rehash(int data){
     nums.push_back(data);
 
     cycleMidRehash:
+    rehashed++;
 
     table1.clear();
     table2.clear();

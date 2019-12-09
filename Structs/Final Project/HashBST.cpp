@@ -9,6 +9,9 @@ int HashBST::hash(int data){
 }
 
 void HashBST::insert(int data){
+    if (occupied == tableSize-1){
+        return;
+    }
     int key = hash(data);
 
     // check if element empty and insert
@@ -36,6 +39,10 @@ void HashBST::insert(int data){
            else if (crawl->data < data && !crawl->right){
                 crawl->right = new BSTNode;
                 crawl->right->data = data;
+                break;
+            }
+            else{
+                //cout << "y: " << data << " " << crawl->data << " " /*<< crawl->left->data << " " << crawl->right->data*/ << endl;
                 break;
             }
         }
@@ -88,6 +95,7 @@ float HashBST::getLoad(){
 
 BSTNode* removeHelper(int data, BSTNode* currNode){
     if(!currNode){
+        cout << "not found" << endl;
         return NULL;
     }
     else if(data < currNode->data){
@@ -99,11 +107,13 @@ BSTNode* removeHelper(int data, BSTNode* currNode){
     else{
         //No child
         if(!currNode->left && !currNode->right){
+            cout << "childless" << endl;
             delete currNode;
             return NULL;
         }
         //Only right child
         else if(!currNode->left){
+            cout << "right" << endl;
             BSTNode *temp = currNode->right;
             delete currNode;
             return temp;
@@ -111,12 +121,14 @@ BSTNode* removeHelper(int data, BSTNode* currNode){
         }
         //Only left child
         else if(!currNode->right){
+            cout << "left" << endl;
             BSTNode *temp = currNode->left;
             delete currNode;
             return temp;
         }
         //Both left and right child
         else{
+            cout << "both" << endl;
             BSTNode *temp = currNode, *crawl = currNode->right, *temp2;
             while(crawl->left){
                 if (!crawl->left->left){
