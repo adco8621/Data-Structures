@@ -23,18 +23,18 @@ void HashCuckoo::insert(int data){
 
     // make sure data is not in either table during call to rehash
 
-    cout << "inserting"
-
     if (table1[hash1(data)] == -1){
         table1[hash1(data)] = data;
-        if (!rehashingFlag)
+        if (!rehashingFlag){
             occupied++;
+        }
         return;
     }
     else if (table2[hash2(data)] == -1){
         table2[hash2(data)] = data;
-        if (!rehashingFlag)
+        if (!rehashingFlag){
             occupied++;
+        }
         return;
     }
     else{
@@ -69,14 +69,16 @@ void HashCuckoo::insert(int data){
             }
             else if (table1[key1] == -1 && prevTable == 2){
                 table1[key1] = currMov;
-                if (!rehashingFlag)
+                if (!rehashingFlag){
                     occupied++;
+                }
                 return;
             }
             else if (table2[key2] == -1 && prevTable == 1){
                 table2[key2] = currMov;
-                if (!rehashingFlag)
+                if (!rehashingFlag){
                     occupied++;
+                }
                 return;
             }
         }
@@ -161,6 +163,8 @@ void HashCuckoo::rehash(int data){
 
     cycleMidRehash:
     rehashed++;
+
+    cout << "r" << endl;
 
     table1.clear();
     table2.clear();

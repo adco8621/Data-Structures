@@ -14,8 +14,7 @@ int main(){
     HashBST BST;
 
 
-    ifstream pre ("dataSetA.csv"), setA ("dataSetA.csv");
-    ifstream setC ("dataSetC.csv");
+    ifstream pre ("dataSetC.csv"), setA ("dataSetC.csv");
 
     string line;
 
@@ -37,52 +36,55 @@ int main(){
 
         // Inserting to BST
 
-        // while(BST.getLoad() < i){
-        //     getline(setA, line, ',');
-        //     BST.insert(stoi(line));
-        // }
-
-        // cout << BST.getLoad() << endl;
-
-        // QueryPerformanceCounter(&startTime);
-        // for (j = 0; j < 100; j++){
-        //     BST.lookup(testNums[(int)((i-.1)*1000) + j]);
-        // }
-        // QueryPerformanceCounter(&endTime);
-        // totalTime.QuadPart = ((endTime.QuadPart - startTime.QuadPart) * 1e6) / frequency.QuadPart;
-        // cout << "BST Lookup Time: " << totalTime.QuadPart << endl;
-
-        // QueryPerformanceCounter(&startTime);
-        // for (j = 0; j < 100; j++){
-        //     BST.remove(testNums[(int)((i-.1)*1000) + j]);
-        // }
-        // QueryPerformanceCounter(&endTime);
-        // totalTime.QuadPart = ((endTime.QuadPart - startTime.QuadPart) * 1e6) / frequency.QuadPart;
-        // cout << "BST Remove Time: " << totalTime.QuadPart << endl;
-
-        // QueryPerformanceCounter(&startTime);
-        // for (j = 0; j < 100; j++){
-        //     BST.insert(testNums[(int)((i-.1)*1000) + j]);
-        // }
-        // QueryPerformanceCounter(&endTime);
-        // totalTime.QuadPart = ((endTime.QuadPart - startTime.QuadPart) * 1e6) / frequency.QuadPart;
-        // cout << "BST Insert Time: " << totalTime.QuadPart << endl;
-        // cout << endl;
-
-        // Cuckoo
-
-        while(cuckoo.getLoad() < i){
+        while(BST.getLoad() < i){
             getline(setA, line, ',');
-            cuckoo.insert(stoi(line));
+            BST.insert(stoi(line));
         }
+
+        cout << BST.getLoad() << endl;
 
         QueryPerformanceCounter(&startTime);
         for (j = 0; j < 100; j++){
-            cuckoo.lookup(testNums[testNums[(int)((i-.1)*1000) + j]]);
+            BST.lookup(testNums[(int)((i-.1)*1000) + j]);
         }
         QueryPerformanceCounter(&endTime);
         totalTime.QuadPart = ((endTime.QuadPart - startTime.QuadPart) * 1e6) / frequency.QuadPart;
-        cout << "Cuckoo Lookup Time: " << totalTime.QuadPart << endl;
+        cout << "BST Lookup Time: " << totalTime.QuadPart << endl;
+
+        QueryPerformanceCounter(&startTime);
+        for (j = 0; j < 100; j++){
+            BST.table[BST.hash(testNums[(int)((i-.1)*1000) + j])] = BST.remove(BST.table[BST.hash(testNums[(int)((i-.1)*1000) + j])],testNums[(int)((i-.1)*1000) + j]);
+            if(BST.table[BST.hash(testNums[(int)((i-.1)*1000) + j])] == NULL){
+                BST.occupied--;
+            }
+        }
+        QueryPerformanceCounter(&endTime);
+        totalTime.QuadPart = ((endTime.QuadPart - startTime.QuadPart) * 1e6) / frequency.QuadPart;
+        cout << "BST Remove Time: " << totalTime.QuadPart << endl;
+
+        QueryPerformanceCounter(&startTime);
+        for (j = 0; j < 100; j++){
+            BST.insert(testNums[(int)((i-.1)*1000) + j]);
+        }
+        QueryPerformanceCounter(&endTime);
+        totalTime.QuadPart = ((endTime.QuadPart - startTime.QuadPart) * 1e6) / frequency.QuadPart;
+        cout << "BST Insert Time: " << totalTime.QuadPart << endl;
+        cout << endl;
+
+        // Cuckoo
+
+        // while(cuckoo.getLoad() < i){
+        //     getline(setA, line, ',');
+        //     cuckoo.insert(stoi(line));
+        // }
+
+        // QueryPerformanceCounter(&startTime);
+        // for (j = 0; j < 100; j++){
+        //     cuckoo.lookup(testNums[(int)((i-.1)*1000) + j]);
+        // }
+        // QueryPerformanceCounter(&endTime);
+        // totalTime.QuadPart = ((endTime.QuadPart - startTime.QuadPart) * 1e6) / frequency.QuadPart;
+        // cout << "Cuckoo Lookup Time: " << totalTime.QuadPart << endl;
 
         // QueryPerformanceCounter(&startTime);
         // for (int j = 0; j < 100; j++){

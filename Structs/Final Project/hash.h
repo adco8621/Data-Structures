@@ -5,7 +5,7 @@ using namespace std;
 
 struct LLNode{
     int data;
-    LLNode *next;
+    LLNode *next = {};
 };
 
 struct BSTNode{
@@ -16,23 +16,24 @@ struct BSTNode{
 
 class HashLL{
 public:
-    int lookup(int);
-    int insert(int);
-    int remove(int);
-    int getLoad();
-private:
-    int hash(int);
+    bool lookup(int num);
+    void insert(int num);
+    bool remove(int num);
+    float getLoad();
+//private:
+    int hash(int data);
 
-    vector<LLNode> table;
-    float load;
-    int tableSize;
+    LLNode *table[1019] = {}; // Makes the table all nullptrs
+    float load = 0;
+    int tableSize = 1019; // Also in the .cpp file
+    int occupied = 0;
 };
 
 class HashBST{
 public:
     bool lookup(int);
     void insert(int);
-    void remove(int);
+    BSTNode* remove(BSTNode*, int);
     float getLoad();
 //private:
     int hash(int);
@@ -45,16 +46,19 @@ public:
 
 class HashLP{
 public:
-    int lookup(int);
-    int insert(int);
-    int remove(int);
-    int getLoad();
+    HashLP();
+    bool lookup(int num);
+    void insert(int num);
+    bool remove(int num);
+    float getLoad();
 private:
-    int hash(int);
+    int hash(int data);
 
     int table[1019];
-    float load;
-    int tableSize;
+    float load = 0;
+    int occupied = 0;
+    int tableSize = 1019;   // Given table size for the project
+    int stepSize = 1;       // Step size is 1 for linear probing here
 };
 
 class HashCuckoo{
